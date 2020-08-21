@@ -16,7 +16,7 @@ const assert = require("chai").assert,
     fs = require("fs"),
     os = require("os"),
     hash = require("../../../lib/cli-engine/hash"),
-    { CascadingConfigArrayFactory } = require("../../../lib/cli-engine/cascading-config-array-factory"),
+    { Legacy: {CascadingConfigArrayFactory} } = require("@eslint/eslintrc"),
     { unIndent, defineCLIEngineWithInMemoryFileSystem } = require("../../_utils");
 
 const proxyquire = require("proxyquire").noCallThru().noPreserveCache();
