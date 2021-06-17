@@ -1,0 +1,50 @@
+diff --git a/node_modules/@babel/core/lib/transformation/normalize-file.js b/node_modules/@babel/core/lib/transformation/normalize-file.js
+index 813a719..7c26d65 100644
+--- a/node_modules/@babel/core/lib/transformation/normalize-file.js
++++ b/node_modules/@babel/core/lib/transformation/normalize-file.js
+@@ -5,16 +5,6 @@ Object.defineProperty(exports, "__esModule", {
+ });
+ exports.default = normalizeFile;
+ 
+-function _fs() {
+-  const data = require("fs");
+-
+-  _fs = function () {
+-    return data;
+-  };
+-
+-  return data;
+-}
+-
+ function _path() {
+   const data = require("path");
+ 
+@@ -100,28 +90,6 @@ function* normalizeFile(pluginPasses, options, code, ast) {
+         }
+       }
+     }
+-
+-    if (!inputMap) {
+-      const lastComment = extractComments(EXTERNAL_SOURCEMAP_REGEX, ast);
+-
+-      if (typeof options.filename === "string" && lastComment) {
+-        try {
+-          const match = EXTERNAL_SOURCEMAP_REGEX.exec(lastComment);
+-
+-          const inputMapContent = _fs().readFileSync(_path().resolve(_path().dirname(options.filename), match[1]));
+-
+-          if (inputMapContent.length > LARGE_INPUT_SOURCEMAP_THRESHOLD) {
+-            debug("skip merging input map > 1 MB");
+-          } else {
+-            inputMap = _convertSourceMap().fromJSON(inputMapContent);
+-          }
+-        } catch (err) {
+-          debug("discarding unknown file input sourcemap", err);
+-        }
+-      } else if (lastComment) {
+-        debug("discarding un-loadable file input sourcemap");
+-      }
+-    }
+   }
+ 
+   return new _file.default(options, {
