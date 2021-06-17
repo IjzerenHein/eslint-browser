@@ -23,13 +23,6 @@
     "webpack": "node Makefile.js webpack",
     "perf": "node Makefile.js perf"
   },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
-  "lint-staged": {
-    "*.js": "eslint --fix",
-    "*.md": "markdownlint"
-  },
   "files": [
     "LICENSE",
     "README.md",
@@ -110,7 +103,6 @@
     "karma-mocha": "^2.0.1",
     "karma-mocha-reporter": "^2.2.5",
     "karma-webpack": "^5.0.0",
-    "lint-staged": "^10.1.2",
     "load-perf": "^0.2.0",
     "markdownlint": "^0.19.0",
     "markdownlint-cli": "^0.22.0",
