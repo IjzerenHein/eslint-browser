@@ -1,0 +1,89 @@
+diff --git a/node_modules/eslint-plugin-react/lib/util/version.js b/node_modules/eslint-plugin-react/lib/util/version.js
+index b778c8b..1d6576c 100644
+--- a/node_modules/eslint-plugin-react/lib/util/version.js
++++ b/node_modules/eslint-plugin-react/lib/util/version.js
+@@ -5,9 +5,6 @@
+ 
+ 'use strict';
+ 
+-const fs = require('fs');
+-const resolve = require('resolve');
+-const path = require('path');
+ const error = require('./error');
+ 
+ let warnedForMissingVersion = false;
+@@ -22,51 +19,9 @@ function resetDetectedVersion() {
+   cachedDetectedReactVersion = undefined;
+ }
+ 
+-function resolveBasedir(contextOrFilename) {
+-  if (contextOrFilename) {
+-    const filename = typeof contextOrFilename === 'string' ? contextOrFilename : contextOrFilename.getFilename();
+-    const dirname = path.dirname(filename);
+-    try {
+-      if (fs.statSync(filename).isFile()) {
+-        // dirname must be dir here
+-        return dirname;
+-      }
+-    } catch (err) {
+-      // https://github.com/eslint/eslint/issues/11989
+-      if (err.code === 'ENOTDIR') {
+-        // virtual filename could be recursive
+-        return resolveBasedir(dirname);
+-      }
+-    }
+-  }
+-  return process.cwd();
+-}
+-
+ // TODO, semver-major: remove context fallback
+ function detectReactVersion(context) {
+-  if (cachedDetectedReactVersion) {
+-    return cachedDetectedReactVersion;
+-  }
+-
+-  const basedir = resolveBasedir(context);
+-
+-  try {
+-    const reactPath = resolve.sync('react', {basedir});
+-    const react = require(reactPath); // eslint-disable-line global-require, import/no-dynamic-require
+-    cachedDetectedReactVersion = react.version;
+-    return cachedDetectedReactVersion;
+-  } catch (e) {
+-    if (e.code === 'MODULE_NOT_FOUND') {
+-      if (!warnedForMissingVersion) {
+-        error('Warning: React version was set to "detect" in eslint-plugin-react settings, '
+-        + 'but the "react" package is not installed. Assuming latest React version for linting.');
+-        warnedForMissingVersion = true;
+-      }
+-      cachedDetectedReactVersion = '999.999.999';
+-      return cachedDetectedReactVersion;
+-    }
+-    throw e;
+-  }
++  return '999.999.999';
+ }
+ 
+ function getReactVersionFromContext(context) {
+@@ -93,20 +48,7 @@ function getReactVersionFromContext(context) {
+ 
+ // TODO, semver-major: remove context fallback
+ function detectFlowVersion(context) {
+-  const basedir = resolveBasedir(context);
+-
+-  try {
+-    const flowPackageJsonPath = resolve.sync('flow-bin/package.json', {basedir});
+-    const flowPackageJson = require(flowPackageJsonPath); // eslint-disable-line global-require, import/no-dynamic-require
+-    return flowPackageJson.version;
+-  } catch (e) {
+-    if (e.code === 'MODULE_NOT_FOUND') {
+-      error('Warning: Flow version was set to "detect" in eslint-plugin-react settings, '
+-        + 'but the "flow-bin" package is not installed. Assuming latest Flow version for linting.');
+-      return '999.999.999';
+-    }
+-    throw e;
+-  }
++  return '999.999.999';
+ }
+ 
+ function getFlowVersionFromContext(context) {

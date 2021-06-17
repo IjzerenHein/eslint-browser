@@ -21,7 +21,8 @@
     "docs": "node Makefile.js docs",
     "gensite": "node Makefile.js gensite",
     "webpack": "node Makefile.js webpack",
-    "perf": "node Makefile.js perf"
+    "perf": "node Makefile.js perf",
+    "postinstall": "patch-package"
   },
   "files": [
     "LICENSE",
@@ -89,9 +90,12 @@
     "eslint": "file:.",
     "eslint-config-eslint": "file:packages/eslint-config-eslint",
     "eslint-plugin-eslint-plugin": "^3.0.3",
+    "eslint-plugin-flowtype": "^5.7.2",
     "eslint-plugin-internal-rules": "file:tools/internal-rules",
     "eslint-plugin-jsdoc": "^25.4.3",
     "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-native": "^3.11.0",
     "eslint-release": "^2.0.0",
     "eslump": "^3.0.0",
     "esprima": "^4.0.1",
@@ -112,6 +116,7 @@
     "node-polyfill-webpack-plugin": "^1.0.3",
     "npm-license": "^0.3.3",
     "nyc": "^15.0.1",
+    "patch-package": "^6.4.7",
     "proxyquire": "^2.0.1",
     "puppeteer": "^7.1.0",
     "recast": "^0.19.0",
