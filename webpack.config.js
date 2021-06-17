@@ -1,11 +1,12 @@
 "use strict";
 const NodePolyfillPlugin = require("node-polyfill-webpack-plugin");
+const path = require("path");
 
 /** @type {import("webpack").Configuration} */
 module.exports = {
     mode: "none",
     entry: {
-        eslint: ["core-js/stable", "regenerator-runtime/runtime", "./lib/linter/linter.js"]
+        eslint: "./lib/api.js"
     },
     output: {
         filename: "[name].js",
@@ -47,7 +48,12 @@ module.exports = {
         new NodePolyfillPlugin()
     ],
     resolve: {
-        mainFields: ["browser", "main", "module"]
+        mainFields: ["browser", "main", "module"],
+        alias: {
+            eslint$: require.resolve("./lib/api.js"),
+            "eslint/lib": path.resolve("./lib"),
+            "eslint-scope": "eslint-scope"
+        }
     },
     stats: "errors-only"
 };
